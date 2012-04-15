@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script type="text/javascript" src="flot/jquery.js"></script>
+        <script type="text/javascript" src="flot/jquery.flot.js"></script>
+        <script type="text/javascript" src="flot/jquery.flot.threshold.js"></script>
+        <script type="text/javascript">
+          var curve = [ { label: "Frames Per Second", data: [ [0, 0] ] } ];
+          var x_index = 3;
+
+          function update()
+          {
+          $.getJSON( "/frame_rate", function( data )
+          {
+          curve[ 0 ].data.push( [ x_index, data.frame_rate ] ); // append a new point to
+          x_index += 1;
+          $.plot( $('#plot_support'),curve);
+          $("#selection").text(" fps:" + data.frame_rate);
+          });
+
+          $.getJSON("/message_box", function(data)
+          {
+          $("#messagebox").text(data.message_box);
+          });
+          }
+
+          $(document).ready(
+          function()
+          {
+          setInterval( 'update()', 500 ); // call update every second
+          }
+          );
+        </script>
+    </head>
+    <body>
+        <h1>Game stats</h1>
+        <div id="plot_support" style="width:600px;height:500px"></div>
+        <p>
+            You selected: <span id="selection"></span>
+        </p>
+        <p>
+          Message from client: <span id="messagebox"></span>
+        </p>
+    </body>
+</html>

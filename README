@@ -1,0 +1,3 @@
+An example implementation of the approach described at http://www.altdevblogaday.com/2011/05/03/my-browser-draws-better-than-i-do/
+Information is served in JSON format using the mongoose webserver to a web page. Flot is used to plot graphs.
+Run the application from within the web directory then browse to localhost:8080.
